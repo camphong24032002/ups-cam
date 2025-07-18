@@ -3,6 +3,17 @@ import numpy as np
 import torchvision.transforms as transforms
 import matplotlib.pyplot as plt
 
+
+def transform_image(img):
+    transform = transforms.Compose([
+        transforms.Resize(256),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406],
+                            [0.229, 0.224, 0.225]),
+    ])
+    return transform(img)
+
 def resize_image(cam, target_size):
     result = []
     for img in cam:
@@ -63,7 +74,7 @@ def save_img(cam_img, fig_name):
     ax.get_xaxis().set_visible(False)
     ax.get_yaxis().set_visible(False)
     plt.imshow(cam_img)
-    plt.savefig(fig_name)
+    plt.savefig(fig_name, transparent=True, bbox_inches='tight', pad_inches=0)
 
 
 def scale_cam_image(cam):
