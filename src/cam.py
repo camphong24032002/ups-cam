@@ -39,9 +39,7 @@ class ActivationsAndGradients:
         for handle in self.handles:
             handle.remove()
 
-def get_grad_cam(model, input_tensor):
-    target_layers = [model.features[-1]]
-
+def get_grad_cam(model, input_tensor, target_layers):
     activations_and_grads = ActivationsAndGradients(
                 model, target_layers)
     input_tensor = torch.autograd.Variable(input_tensor, requires_grad=True)
